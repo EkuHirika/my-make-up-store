@@ -1,10 +1,10 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getProducts } from "../services/productService";
 import defaultImg from "../assets/img/product-default-image.png";
 import Navbar from "../components/Navbar";
 import { MdFavoriteBorder } from "react-icons/md";
-
+import backgroundImg from "../assets/img/minimal-surrealistic-abstract-background.jpg";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -15,25 +15,44 @@ export default function ProductsPage() {
 
   return (
     <>
-      <div className="bg-[#FFF5E1]">
+      <div className=" min-h-screen" style={{ backgroundImage: `url(${backgroundImg})`, backgroundSize: 'cover' }}>
         <Navbar />
-        <h1 className="text-3xl">Products</h1>
 
-        <div className="products-sections flex flex-wrap justify-center gap-3 w-[70%] mx-auto">
+        <div className="products-sections flex flex-wrap justify-center gap-6 w-[60%] mx-auto pt-10">
           {products.map((p) => (
             <section
               key={p.id}
-              className="product-card border-3 border-[#00D4FF] bg-white p-4 rounded-md h-110 w-70"
+              className="product-card relative border border-[#00D4FF] bg-white p-4 rounded-lg w-64 h-[370px] shadow-md"
             >
-              <button className="absolute text-3xl translate-x-51 translate-y-2"><MdFavoriteBorder /></button>
-              <img src={defaultImg} alt="Img of the product" />
-              <div className="h-[30%]">
-              <h2>{p.brand_name}</h2>
-              <h3 className="font-bold text-xl">{p.name}</h3>
-              <p>Price: {p.price}€</p>
+              {/* Favorite button */}
+              <button className="absolute top-2 right-2 text-3xl text-gray-600 hover:text-pink-500 transition">
+                <MdFavoriteBorder />
+              </button>
+
+              {/* Image */}
+              <div className="w-full h-40 flex justify-center items-center overflow-hidden">
+                <img
+                  src={defaultImg}
+                  alt="Product"
+                  className="h-full object-contain"
+                />
               </div>
-              <div className="flex justify-end gap-2 p-1">
-                <button className="border border-2 bg-white rounded-md text-xl h-8 p-1 flex items-center"><Link to={`/products/details/${p.id}`} >Discover</Link></button>
+
+              {/* Text section */}
+              <div className="mt-3 flex flex-col h-32">
+                <h2 className="text-sm text-gray-600">{p.brand_name}</h2>
+                <h3 className="font-bold text-lg leading-tight">{p.name}</h3>
+                <p className="mt-1 text-md font-semibold">Price: {p.price}€</p>
+              </div>
+
+              {/* Bottom button */}
+              <div className="flex justify-end">
+                <Link
+                  to={`/products/details/${p.id}`}
+                  className="border border-[#00D4FF] px-3 py-1 rounded-md text-md hover:bg-[#00D4FF] hover:text-white transition"
+                >
+                  Discover
+                </Link>
               </div>
             </section>
           ))}

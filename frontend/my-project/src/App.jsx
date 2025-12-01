@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import ProductDetail from './pages/ProductDetail';
+import UserPage from './pages/UserPage';
 
 export default function App() {
   return (
@@ -10,6 +11,8 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/details/:id" element={<ProductDetail/>} />
+        <Route path="/user" element={<UserPage />} />
+   
       </Routes>
     </BrowserRouter>
   )
