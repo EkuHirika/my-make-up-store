@@ -1,0 +1,11 @@
+const express = require('express');
+const app = express();
+const productsRouter = require('./products'); // import routes
+
+app.use(express.json());
+app.use('/', productsRouter); // connect all routes
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на http://localhost:${PORT}`);
+});
