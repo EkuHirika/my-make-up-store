@@ -17,12 +17,12 @@ export async function login(email: string, password: string): Promise<User | nul
   return user || null;
 }
 
- export async function register( first_name: string, last_name: string, phone: string, email: string, role: string, password: string): Promise<User> {
+ export async function register( first_name: string, last_name: string, phone: string, email: string,  password: string): Promise<User> {
     const hashed = await bcrypt.hash(password, 10);
 
     const result =  await pool.query(
-     'INSERT INTO users (first_name, last_name, phone, email, role, password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-     [first_name, last_name, phone, email, role, hashed]
+     'INSERT INTO users (first_name, last_name, phone, email,  password) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+     [first_name, last_name, phone, email, hashed]
    );
    return result.rows[0];
  }

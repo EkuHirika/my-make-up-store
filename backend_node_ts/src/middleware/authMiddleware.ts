@@ -7,6 +7,8 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
     const authHeader = req.headers['authorization'];
 
     if (!authHeader?.startsWith('Bearer ')) {
+        console.log("no token");
+        
         return res.status(401).json({ success: false, message: 'No token provided' });
     }
     const token = authHeader && authHeader.split(' ')[1];

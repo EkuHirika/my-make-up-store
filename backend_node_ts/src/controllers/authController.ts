@@ -30,8 +30,8 @@ export async function postLogin(req: Request, res: Response) {
 
 export async function postRegister(req: Request, res: Response) {
     try {
-        const { first_name, last_name, phone, email, role, password } = req.body;
-        const newUser: User = await authService.register(first_name, last_name, phone, email, role, password);
+        const { first_name, last_name, phone, email, password } = req.body;
+        const newUser: User = await authService.register(first_name, last_name, phone, email,  password);
         res.status(201).json({ success: true, user: newUser });
     } catch (error) {
         console.error(error);

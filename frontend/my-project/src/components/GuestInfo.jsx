@@ -1,5 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 export default function GuestInfo() {
   const [isRegistering, setIsRegistering] = useState(false); // toggle between login/register
@@ -9,27 +12,31 @@ export default function GuestInfo() {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   // Handle Login
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:3000/auth/login", {
-        email,
-        password,
-      });
-      if (response.data.success) {
-        setMessage("Login successful!");
-        localStorage.setItem("authToken", response.data.token);
-        localStorage.setItem("userData", JSON.stringify(response.data.user));
-      } else {
-        setMessage("Invalid email or password.");
-      }
-    } catch (error) {
-      setMessage("An error occurred during login.");
-      console.error("Login error:", error);
+const { login } = useContext(AuthContext);
+
+const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await axios.post("http://localhost:3000/auth/login", {
+      email,
+      password,
+    });
+
+    if (response.data.success) {
+      login(response.data.user, response.data.token); // <-- IMPORTANT
+
+      navigate("/user");
+    } else {
+      setMessage("Invalid email or password.");
     }
-  };
+  } catch (error) {
+    setMessage("An error occurred during login.");
+    console.error("Login error:", error);
+  }
+};
 
   // Handle Registration
   const handleRegister = async (e) => {

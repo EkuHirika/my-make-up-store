@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import ProductDetail from './pages/ProductDetail';
 import UserPage from './pages/UserPage';
+import GuestInfo from './components/GuestInfo.jsx';
 
 export default function App() {
   return (
@@ -12,6 +13,8 @@ export default function App() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/details/:id" element={<ProductDetail/>} />
         <Route path="/user" element={<UserPage />} />
+        <Route path="/guestinfo" element={<GuestInfo />} />
+
    
       </Routes>
     </BrowserRouter>
